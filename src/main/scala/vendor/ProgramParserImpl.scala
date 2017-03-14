@@ -5,9 +5,10 @@ package vendor
   */
 case class ProgramParserImpl() extends vendor.ProgramParser {
 
-  private val ValidInstructions = Vector("iconst", "iconst", "iswap", "iadd", "iconst", "iadd",
-    "iconst", "isub", "iconst", "imul", "iconst", "idiv",
-    "iconst", "irem", "ineg", "idec", "iinc", "idup", "print", "print")
+  private val ValidInstructions = Vector(
+    "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
+    "idec", "iinc", "iswap", "idup", "print"
+  )
 
   /**
     * @see [[vendor.ProgramParser.parse()]]
@@ -32,15 +33,21 @@ case class ProgramParserImpl() extends vendor.ProgramParser {
     * @return the parsed instructions in an [[InstructionList]]
     */
   private def parseLinesToVector(lines: Iterator[String]): InstructionList =
-    // TODO: Error checking etc
     lines
       .map(l => {
-      val parts = l.split(" ")
-      if (parts.length > 1) {
-        new Instruction(parts.head, parts.tail.map(_.toInt).toVector)
-      } else {
-        new Instruction(parts.head, Vector())
-      }
-    })
-    .toVector
+        val parts = l.split(" ")
+        if (!ValidInstructions.contains(parts.head)) {
+          throw new InvalidInstructionFormatException("Unrecognised instruction")
+        }
+        if (parts.length > 1) {
+          val args = parts.tail.map {
+            case n if n.matches("\\d+") => n.toInt
+            case _ => throw new InvalidInstructionFormatException(s"${parts.head} only accepts Int arguments")
+          }.toVector
+          new Instruction(parts.head, args)
+        } else {
+          new Instruction(parts.head, Vector())
+        }
+      })
+      .toVector
 }
