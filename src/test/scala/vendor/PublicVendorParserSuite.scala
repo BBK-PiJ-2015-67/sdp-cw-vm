@@ -7,19 +7,19 @@ class PublicVendorParserSuite extends FunSuite {
   val vp = VirtualMachineFactory.vendorParser
 
   test("[0] vendor parser throw if parsing unrecognised instruction") {
-    assertThrows[vendor.InvalidInstructionFormatException] {
+    intercept[vendor.InvalidInstructionFormatException] {
       val insts = vp.parseString("ssss\n")
     }
   }
 
   test("[1] vendor parser throw if parsing bad program") {
-    assertThrows[vendor.InvalidInstructionFormatException] {
+    intercept[vendor.InvalidInstructionFormatException] {
       val insts = vp.parseString("programs/p04-bad-program.vm")
     }
   }
 
   test("[2] vendor parser throw if parsing invalid arguments") {
-    assertThrows[vendor.InvalidInstructionFormatException] {
+    intercept[vendor.InvalidInstructionFormatException] {
       val insts = vp.parseString("iconst x\niconst aa\niadd\nprint")
     }
   }
