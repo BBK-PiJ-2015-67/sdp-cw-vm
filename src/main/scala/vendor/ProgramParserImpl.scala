@@ -20,7 +20,10 @@ case class ProgramParserImpl() extends vendor.ProgramParser {
   /**
     * @see [[vendor.ProgramParser.parseString()]]
     */
-  override def parseString(string: String): InstructionList = ???
+  override def parseString(string: String): InstructionList = {
+    parseLinesToVector(string.split("\n").toIterator)
+  }
+
   /**
     * Parses an Iterator of Strings into
     * an InstructionList
