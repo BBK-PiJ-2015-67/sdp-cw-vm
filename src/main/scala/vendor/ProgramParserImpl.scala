@@ -3,7 +3,7 @@ package vendor
 /**
   * @author lmignot
   */
-case class ProgramParserImpl() extends vendor.ProgramParser {
+object ProgramParserImpl extends vendor.ProgramParser {
 
   private val ValidInstructions = Vector(
     "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
