@@ -5,7 +5,7 @@ package vendor
   */
 object ProgramParserImpl extends vendor.ProgramParser {
 
-  private val ValidInstructions = Vector(
+  private lazy val ValidInstructions = Vector(
     "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
     "idec", "iinc", "iswap", "idup", "print"
   )
@@ -46,7 +46,7 @@ object ProgramParserImpl extends vendor.ProgramParser {
           }.toVector
           new Instruction(parts.head, args)
         } else {
-          new Instruction(parts.head, Vector())
+          new Instruction(parts.head, Vector.empty)
         }
       })
       .toVector
