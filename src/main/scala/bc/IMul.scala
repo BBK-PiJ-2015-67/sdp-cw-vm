@@ -5,9 +5,9 @@ package bc
   *
   * @see [[MathByteCode]]
   */
-case class IAdd() extends MathByteCode(_ + _) {
+case class IMul() extends MathByteCode(_ * _) {
   /**
     * @see [[bc.ByteCode.code]]
     */
-  override val code: Byte = bytecode("iadd")
+  override val code: Byte = bytecode("imul")
 }

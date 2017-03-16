@@ -5,7 +5,7 @@ package bc
   *
   * @see [[MathByteCode]]
   */
-case class IAdd() extends MathByteCode(_ + _) {
+case class IRem() extends MathByteCode(_ % _) {
   /**
     * @see [[bc.ByteCode.code]]
     */
