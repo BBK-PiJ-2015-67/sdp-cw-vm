@@ -18,6 +18,10 @@ class ByteCodeSpec extends FunSpec with Matchers with MockitoSugar with BeforeAn
   private val Prod = TopNum * BottomNum
   private val Rem = TopNum / BottomNum
   private val Mod = TopNum % BottomNum
+  private val Neg = -TopNum
+  private val Inc = TopNum + 1
+  private val Dec = TopNum - 1
+  private val Zero = 0
   private val vm1 = mock[VirtualMachine]
   private val vm2 = mock[VirtualMachine]
   private val vm3 = mock[VirtualMachine]
@@ -45,7 +49,14 @@ class ByteCodeSpec extends FunSpec with Matchers with MockitoSugar with BeforeAn
       IDiv().execute(vm1).state.head should be (Rem)
     }
 
-    it("IRem must return return VM whose top value is modulus of top 2 values of a VM") {
+    it("IDiv should throw an arithmetic exception if 2nd value of original VM is Zero") {
+      when(vm2.pop()).thenReturn((Zero, vm3))
+      intercept[ArithmeticException] {
+        IDiv().execute(vm1)
+      }
+    }
+
+    it("IRem must return a VM whose top value is modulus of top 2 values of a VM") {
       when(vm4.state).thenReturn(Vector(TopNum % BottomNum))
       IDiv().execute(vm1).state.head should be (Mod)
     }
@@ -54,17 +65,17 @@ class ByteCodeSpec extends FunSpec with Matchers with MockitoSugar with BeforeAn
   describe("manipulating ByteCodes") {
     it("INeg must return a VM whose top value is the negation of the original VM") {
       when(vm3.state).thenReturn(Vector(-TopNum))
-      INeg().execute(vm1).state.head should be (-TopNum)
+      INeg().execute(vm1).state.head should be (Neg)
     }
 
     it("IInc must return a VM whose top value has been incremented") {
       when(vm3.state).thenReturn(Vector(TopNum + 1))
-      IInc().execute(vm1).state.head should be (TopNum + 1)
+      IInc().execute(vm1).state.head should be (Inc)
     }
 
     it("IDec must return a VM whose top value has been decremented") {
       when(vm3.state).thenReturn(Vector(TopNum - 1))
-      IDec().execute(vm1).state.head should be (TopNum - 1)
+      IDec().execute(vm1).state.head should be (Dec)
     }
   }
 
@@ -81,6 +92,12 @@ class ByteCodeSpec extends FunSpec with Matchers with MockitoSugar with BeforeAn
       val state = IDup().execute(vm1).state
       state.head should be (TopNum)
       state.tail.head should be (TopNum)
+    }
+
+    it("Print must print top value of original VM and return VM with top value removed") {
+      when(vm2.state).thenReturn(Vector(BottomNum))
+      Print().execute(vm1).state.head should be (BottomNum)
+      // todo: test stdout somehow
     }
 
   }
