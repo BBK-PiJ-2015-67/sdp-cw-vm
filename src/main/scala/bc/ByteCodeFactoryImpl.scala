@@ -9,7 +9,7 @@ object ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
   /**
     * [[ByteCodeValues.bytecode]] maps a String representing a ByteCode
     * instruction to some Byte value. We require a reverse of this map so we can
-    * match a Byte value to its String representation
+    * match a Byte value against its String representation
     */
   private lazy val byteToNames: Map[Byte, String] = bytecode.map(_.swap)
 

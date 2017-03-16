@@ -2,12 +2,13 @@ package bc
 import vm.VirtualMachine
 
 /**
-  * @author lmignot
+  * Implementation of various [[ByteCode]] instructions for
+  * a [[VirtualMachine]]
   */
 package object ByteCodes {
 
   /**
-    * Math ByteCodes all pop the top 2 values off the VirtualMachine stack
+    * Math ByteCodes pop the top 2 values off the VirtualMachine stack
     * and perform some mathematical operation, pushing the result
     *
     * @param f some arithmetic op to perform on 2 integer values
@@ -94,6 +95,7 @@ package object ByteCodes {
 
   /**
     * Push the quotient of top 2 values onto the [[VirtualMachine]] stack
+    * Execute will throw an [[ArithmeticException]] if dividing by Zero
     *
     * @see [[MathByteCode]]
     */
