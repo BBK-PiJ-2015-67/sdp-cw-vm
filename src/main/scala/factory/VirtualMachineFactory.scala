@@ -1,6 +1,6 @@
 package factory
 
-import bc.{ByteCodeFactory, ByteCodeParser}
+import bc.{ByteCodeFactory, ByteCodeFactoryImpl, ByteCodeParser, ByteCodeParserImpl}
 import vendor.{ProgramParser, ProgramParserImpl}
 import vm.{VirtualMachine, VirtualMachineParser}
 
@@ -10,14 +10,11 @@ import vm.{VirtualMachine, VirtualMachineParser}
   * implement each method such that it returns an object of the correct type.
   */
 object VirtualMachineFactory {
-  // TODO
-  def byteCodeFactory: ByteCodeFactory = ???
+  def byteCodeFactory: ByteCodeFactory = ByteCodeFactoryImpl
 
-  // TODO
   def vendorParser: ProgramParser = ProgramParserImpl
 
-  // TODO
-  def byteCodeParser: ByteCodeParser = ???
+  def byteCodeParser: ByteCodeParser = ByteCodeParserImpl(byteCodeFactory)
 
   // TODO
   def virtualMachineParser: VirtualMachineParser = ???

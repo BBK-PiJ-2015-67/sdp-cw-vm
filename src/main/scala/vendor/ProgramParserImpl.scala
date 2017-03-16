@@ -3,7 +3,7 @@ package vendor
 /**
   * @author lmignot
   */
-object ProgramParserImpl extends vendor.ProgramParser {
+object ProgramParserImpl extends ProgramParser {
 
   private lazy val ValidInstructions = Vector(
     "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
