@@ -48,7 +48,6 @@ class ByteCodeSpec extends FunSpec with Matchers with MockitoSugar with BeforeAn
       when(vm4.state).thenReturn(Vector(TopNum % BottomNum))
       IDiv().execute(vm1).state.head should be (Mod)
     }
-
   }
 
   override def beforeEach(): Unit = {

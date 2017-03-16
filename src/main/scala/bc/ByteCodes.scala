@@ -29,7 +29,7 @@ package object ByteCodes {
     *
     * @param f some manipulation to perform on a single integer
     */
-  abstract class ManipulateByteCode(f: (Int) => Int) extends ByteCode {
+  abstract class ManipulateByteCode(f: Int => Int) extends ByteCode {
     /**
       * @see [[ByteCode.execute]]
       */
@@ -57,7 +57,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the sum of 2 Int values onto the stack
+    * Push the sum of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
@@ -69,7 +69,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the difference of 2 Int values onto the stack
+    * Push the difference of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
@@ -81,7 +81,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the product of 2 Int values onto the stack
+    * Push the product of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
@@ -93,7 +93,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the remainder of 2 Int values onto the stack
+    * Push the remainder of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
@@ -105,7 +105,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the modulus of 2 Int values onto the stack
+    * Push the modulus of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
@@ -153,7 +153,7 @@ package object ByteCodes {
   }
 
   /**
-    * Swaps the top 2 values of the [[VirtualMachine]] stack
+    * Swap the top 2 values of the [[VirtualMachine]] stack
     *
     * @see [[ByteCode]]
     */
@@ -174,7 +174,7 @@ package object ByteCodes {
   }
 
   /**
-    * Swaps the top 2 values of the [[VirtualMachine]] stack
+    * Duplicate the top value of the [[VirtualMachine]] stack
     *
     * @see [[ByteCode]]
     */
