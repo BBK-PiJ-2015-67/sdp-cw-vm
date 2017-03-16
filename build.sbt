@@ -5,7 +5,11 @@ version := "1.0"
 scalaVersion := "2.12.1"
 
 // Change this to another test framework if you prefer
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.1"
+
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+
+libraryDependencies += "org.mockito" % "mockito-core" % "2.7.17" % "test"
 
 // Add this for error logging - provides default logger
 libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.22"
