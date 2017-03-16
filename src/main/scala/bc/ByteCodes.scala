@@ -93,7 +93,7 @@ package object ByteCodes {
   }
 
   /**
-    * Push the remainder of top 2 values onto the [[VirtualMachine]] stack
+    * Push the quotient of top 2 values onto the [[VirtualMachine]] stack
     *
     * @see [[MathByteCode]]
     */
