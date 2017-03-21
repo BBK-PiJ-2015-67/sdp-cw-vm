@@ -45,7 +45,7 @@ package object ByteCodes {
     *
     * @see [[ByteCode]]
     */
-  case class IConst(num: Int) extends ByteCode {
+  final case class IConst(num: Int) extends ByteCode {
     /**
       * @see [[ByteCode.code]]
       */
@@ -62,7 +62,7 @@ package object ByteCodes {
     *
     * @see [[MathByteCode]]
     */
-  case class IAdd() extends MathByteCode(_ + _) {
+  final case class IAdd() extends MathByteCode(_ + _) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -74,7 +74,7 @@ package object ByteCodes {
     *
     * @see [[MathByteCode]]
     */
-  case class ISub() extends MathByteCode(_ - _) {
+  final case class ISub() extends MathByteCode(_ - _) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -86,7 +86,7 @@ package object ByteCodes {
     *
     * @see [[MathByteCode]]
     */
-  case class IMul() extends MathByteCode(_ * _) {
+  final case class IMul() extends MathByteCode(_ * _) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -99,7 +99,7 @@ package object ByteCodes {
     *
     * @see [[MathByteCode]]
     */
-  case class IDiv() extends MathByteCode(_ / _) {
+  final case class IDiv() extends MathByteCode(_ / _) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -111,7 +111,7 @@ package object ByteCodes {
     *
     * @see [[MathByteCode]]
     */
-  case class IRem() extends MathByteCode(_ % _) {
+  final case class IRem() extends MathByteCode(_ % _) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -123,7 +123,7 @@ package object ByteCodes {
     *
     * @see [[ManipulateByteCode]]
     */
-  case class INeg() extends ManipulateByteCode(-_) {
+  final case class INeg() extends ManipulateByteCode(-_) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -135,7 +135,7 @@ package object ByteCodes {
     *
     * @see [[ManipulateByteCode]]
     */
-  case class IInc() extends ManipulateByteCode(_ + 1) {
+  final case class IInc() extends ManipulateByteCode(_ + 1) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -147,7 +147,7 @@ package object ByteCodes {
     *
     * @see [[ManipulateByteCode]]
     */
-  case class IDec() extends ManipulateByteCode(_ - 1) {
+  final case class IDec() extends ManipulateByteCode(_ - 1) {
     /**
       * @see [[ByteCode.code]]
       */
@@ -159,7 +159,7 @@ package object ByteCodes {
     *
     * @see [[ByteCode]]
     */
-  case class ISwap() extends ByteCode {
+  final case class ISwap() extends ByteCode {
     /**
       * @see [[ByteCode.code]]
       */
@@ -180,7 +180,7 @@ package object ByteCodes {
     *
     * @see [[ByteCode]]
     */
-  case class IDup() extends ByteCode {
+  final case class IDup() extends ByteCode {
     /**
       * @see [[ByteCode.code]]
       */
@@ -200,7 +200,7 @@ package object ByteCodes {
     *
     * @see [[ByteCode]]
     */
-  case class Print() extends ByteCode {
+  final case class Print() extends ByteCode {
     /**
       * @see [[ByteCode.code]]
       */
