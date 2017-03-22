@@ -16,10 +16,12 @@ case class ByteCodeParserImpl(factory: ByteCodeFactory) extends ByteCodeParser {
     */
   override def parse(bc: Vector[Byte]): Vector[ByteCode] = {
     def parser(out: Vector[ByteCode], in: Vector[Byte]): Vector[ByteCode] = in match {
-      case hd +: tl if hasArgs.contains(hd) => {
-        case tl.nonEmpty => parser(out :+ factory.make(hd, tl.head), tl.tail)
-        case _ => throw new InvalidBytecodeException(s"Argument missing for code matching byte: $hd")
-      }
+      case hd +: tl if hasArgs.contains(hd) =>
+        if (tl.nonEmpty) {
+          parser(out :+ factory.make(hd, tl.head), tl.tail)
+        } else {
+          throw new InvalidBytecodeException(s"Argument missing for code matching byte: $hd")
+        }
       case hd +: tl => parser(out :+ factory.make(hd), tl)
       case _ => out
     }
