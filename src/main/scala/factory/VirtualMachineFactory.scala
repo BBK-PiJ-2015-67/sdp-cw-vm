@@ -16,7 +16,7 @@ object VirtualMachineFactory {
 
   def byteCodeParser: ByteCodeParser = ByteCodeParserImpl(byteCodeFactory)
 
-  def virtualMachineParser: VirtualMachineParser = VirtualMachineParserImpl
+  def virtualMachineParser: VirtualMachineParser = VirtualMachineParserImpl(vendorParser, byteCodeParser)
 
   def virtualMachine: VirtualMachine = VirtualMachineImpl()
 }
