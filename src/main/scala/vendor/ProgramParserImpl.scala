@@ -31,6 +31,7 @@ object ProgramParserImpl extends ProgramParser {
     *
     * @param lines Some Iterator containing Strings to parse
     * @return the parsed instructions in an [[InstructionList]]
+    * @throws InvalidInstructionFormatException if parsing fails
     */
   private def parseLinesToVector(lines: Iterator[String]): InstructionList =
     lines

@@ -15,6 +15,7 @@ object ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
 
   /**
     * @see [[ByteCodeFactory.make]]
+    * @throws InvalidBytecodeException if parsing fails
     */
   override def make(byte: Byte, args: Int*): ByteCode = byteToNames.get(byte) match {
     case Some("iadd") => IAdd()

@@ -14,12 +14,14 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
 
   /**
     * @see [[VirtualMachineParser.parse()]]
+    * @throws InvalidBytecodeException if parsing fails
     */
   override def parse(file: String): ByteCodeList =
     adapt(tryToParse(file, vParser.parse))
 
   /**
     * @see [[VirtualMachineParser.parseString()]]
+    * @throws InvalidBytecodeException if parsing fails
     */
   override def parseString(str: String): ByteCodeList =
     adapt(tryToParse(str, vParser.parseString))
@@ -33,6 +35,7 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
     * @param f Function that takes a String and returns
     *          an [[InstructionList]]
     * @return The parsed [[InstructionList]] if successful
+    * @throws InvalidBytecodeException if parsing fails
     */
   private def tryToParse(input: String,
                   f: String => InstructionList): InstructionList = {

@@ -13,6 +13,7 @@ case class ByteCodeParserImpl(factory: ByteCodeFactory) extends ByteCodeParser {
 
   /**
     * @see [[ByteCodeParser.parse]]
+    * @throws InvalidBytecodeException if parsing fails
     */
   override def parse(bc: Vector[Byte]): Vector[ByteCode] = {
     def parser(out: Vector[ByteCode], in: Vector[Byte]): Vector[ByteCode] = in match {
