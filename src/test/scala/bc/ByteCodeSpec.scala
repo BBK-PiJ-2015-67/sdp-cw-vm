@@ -5,7 +5,7 @@ import org.scalatest.mockito.MockitoSugar
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
 import vm.VirtualMachine
-import bc.ByteCodes._
+import bc.byteCodes._
 
 /**
   * Testing ByteCodes

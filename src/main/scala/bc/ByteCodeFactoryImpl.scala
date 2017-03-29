@@ -1,5 +1,5 @@
 package bc
-import bc.ByteCodes._
+import bc.byteCodes._
 
 /**
   * @see [[ByteCodeFactory]]

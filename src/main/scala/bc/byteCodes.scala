@@ -5,7 +5,7 @@ import vm.VirtualMachine
   * Implementation of various [[ByteCode]] instructions for
   * a [[VirtualMachine]]
   */
-package object ByteCodes {
+package object byteCodes {
 
   /**
     * Math ByteCodes pop the top 2 values off the VirtualMachine stack
