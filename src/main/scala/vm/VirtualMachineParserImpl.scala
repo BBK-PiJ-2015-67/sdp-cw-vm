@@ -48,17 +48,19 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
   /**
     * Adapts an [[InstructionList]] to a [[ByteCodeList]]
     *
+    * [[ByteCodeParser.parse()]] expects a Vector[Byte] as input.
+    * Iterate over the [[InstructionList]] and add the byte value for the
+    * [[Instruction.name]] and optionally [[Instruction.args]].
+    * Pass the resulting [[Vector]] of [[Byte]] to [[ByteCodeParser.parse()]]
+    *
     * @param input [[InstructionList]] to adapt
     * @return [[ByteCodeList]] with each instruction adapted
     *         as a [[ByteCode]]
     */
-  private def adapt(input: InstructionList): ByteCodeList =
-    bcParser.parse(input.foldLeft(Vector.empty)((acc, ins) => ins match {
-      case Instruction if ins.args.nonEmpty => {
-        acc :+ bcParser.bytecode(ins.name)
-        acc :+ ins.args.map(_.toByte)
-      }
-      case Instruction if ins.args.isEmpty => acc :+ bcParser.bytecode(ins.name)
+  private def adapt(input: InstructionList): ByteCodeList = {
+    bcParser.parse(input.foldLeft(Vector[Byte]())((acc, ins) => ins match {
+      case i: Instruction => (acc :+ bcParser.bytecode(i.name)) ++ i.args.map(_.toByte)
       case _ => acc
     }))
+  }
 }
