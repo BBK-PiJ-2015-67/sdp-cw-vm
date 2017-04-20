@@ -52,12 +52,13 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
     * @return [[ByteCodeList]] with each instruction adapted
     *         as a [[ByteCode]]
     */
-  private def adapt(input: InstructionList): ByteCodeList = {
-    var output: Vector[Byte] = Vector.empty
-    for (el <- input) {
-      output :+= bcParser.bytecode(el.name)
-      if (el.args.nonEmpty) output = output ++ el.args.map(_.toByte)
-    }
-    bcParser.parse(output)
-  }
+  private def adapt(input: InstructionList): ByteCodeList =
+    bcParser.parse(input.foldLeft(Vector.empty)((acc, ins) => ins match {
+      case Instruction if ins.args.nonEmpty => {
+        acc :+ bcParser.bytecode(ins.name)
+        acc :+ ins.args.map(_.toByte)
+      }
+      case Instruction if ins.args.isEmpty => acc :+ bcParser.bytecode(ins.name)
+      case _ => acc
+    }))
 }
