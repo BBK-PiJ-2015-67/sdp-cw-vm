@@ -34,21 +34,15 @@ object ProgramParserImpl extends ProgramParser {
     * @throws InvalidInstructionFormatException if parsing fails
     */
   private def parseLinesToVector(lines: Iterator[String]): InstructionList =
-    lines
-      .map(l => {
-        val parts = l.split(" ")
-        if (!ValidInstructions.contains(parts.head)) {
+    lines.map(l => {
+      l.split(" ").toList match {
+        case hd :: tl if tl.nonEmpty => new Instruction(hd, tl.map {
+          case n if n.matches("\\d+") => n.toInt
+          case _ => throw new InvalidInstructionFormatException(s"${hd} only accepts Int arguments")
+        }.toVector)
+        case hd :: _ if !ValidInstructions.contains(hd) =>
           throw new InvalidInstructionFormatException("Unrecognised instruction")
-        }
-        if (parts.length > 1) {
-          val args = parts.tail.map {
-            case n if n.matches("\\d+") => n.toInt
-            case _ => throw new InvalidInstructionFormatException(s"${parts.head} only accepts Int arguments")
-          }.toVector
-          new Instruction(parts.head, args)
-        } else {
-          new Instruction(parts.head, Vector.empty)
-        }
-      })
-      .toVector
+        case hd :: _ => new Instruction(hd, Vector.empty)
+      }
+    }).toVector
 }
