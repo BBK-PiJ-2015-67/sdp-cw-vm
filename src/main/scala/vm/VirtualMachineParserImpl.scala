@@ -57,10 +57,9 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
     * @return [[ByteCodeList]] with each instruction adapted
     *         as a [[ByteCode]]
     */
-  private def adapt(input: InstructionList): ByteCodeList = {
+  private def adapt(input: InstructionList): ByteCodeList =
     bcParser.parse(input.foldLeft(Vector[Byte]())((acc, ins) => ins match {
       case i: Instruction => (acc :+ bcParser.bytecode(i.name)) ++ i.args.map(_.toByte)
       case _ => acc
     }))
-  }
 }
