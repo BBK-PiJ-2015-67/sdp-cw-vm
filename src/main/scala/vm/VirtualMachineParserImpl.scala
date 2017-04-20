@@ -17,29 +17,28 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
     * @throws InvalidBytecodeException if parsing fails
     */
   override def parse(file: String): ByteCodeList =
-    adapt(tryToParse(file, vParser.parse))
+    parseAndAdapt(file)(vParser.parse)(adapt)
 
   /**
     * @see [[VirtualMachineParser.parseString()]]
     * @throws InvalidBytecodeException if parsing fails
     */
   override def parseString(str: String): ByteCodeList =
-    adapt(tryToParse(str, vParser.parseString))
+    parseAndAdapt(str)(vParser.parseString)(adapt)
 
   /**
-    * Catches [[InvalidInstructionFormatException]]
-    * and throws the expected [[InvalidBytecodeException]]
-    * instead
-    *
+    * Parses and adapts an [[InstructionList]] to a [[ByteCodeList]]
     * @param input String containing codes to be parsed
-    * @param f Function that takes a String and returns
-    *          an [[InstructionList]]
-    * @return The parsed [[InstructionList]] if successful
+    * @param f Function that takes a String and returns an [[InstructionList]]
+    * @param g Function that takes an [[InstructionList]] and returns a [[ByteCodeList]]
+    * @return [[ByteCodeList]] with each instruction adapted
+    *         as a [[ByteCode]]
     * @throws InvalidBytecodeException if parsing fails
     */
-  private def tryToParse(input: String,
-                  f: String => InstructionList): InstructionList = {
-    try f(input)
+  private def parseAndAdapt(input: String)
+                           (f: String => InstructionList)
+                           (g: InstructionList => ByteCodeList): ByteCodeList = {
+    try g(f(input))
     catch {
       case ex: InvalidInstructionFormatException =>
         throw new InvalidBytecodeException(ex.getMessage)
