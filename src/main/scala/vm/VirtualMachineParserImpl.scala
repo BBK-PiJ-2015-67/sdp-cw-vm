@@ -49,9 +49,6 @@ case class VirtualMachineParserImpl(vParser: ProgramParser,
     * Adapts an [[InstructionList]] to a [[ByteCodeList]]
     *
     * [[ByteCodeParser.parse()]] expects a Vector[Byte] as input.
-    * Iterate over the [[InstructionList]] and add the byte value for the
-    * [[Instruction.name]] and optionally [[Instruction.args]].
-    * Pass the resulting [[Vector]] of [[Byte]] to [[ByteCodeParser.parse()]]
     *
     * @param input [[InstructionList]] to adapt
     * @return [[ByteCodeList]] with each instruction adapted

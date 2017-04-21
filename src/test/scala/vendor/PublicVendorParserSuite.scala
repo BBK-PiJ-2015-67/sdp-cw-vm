@@ -6,9 +6,15 @@ import org.scalatest.FunSuite
 class PublicVendorParserSuite extends FunSuite {
   val vp = VirtualMachineFactory.vendorParser
 
-  test("[0] vendor parser throw if parsing unrecognised instruction") {
+  test("[0] vendor parser throws if parsing unrecognised instruction") {
     intercept[vendor.InvalidInstructionFormatException] {
-      val insts = vp.parseString("ssss\n")
+      val insts = vp.parseString("ssss\niconst 2")
+    }
+  }
+
+  test("[0b] vendor parser throw if parsing unrecognised instruction with arguments") {
+    intercept[vendor.InvalidInstructionFormatException] {
+      val insts = vp.parseString("ssss 2\n")
     }
   }
 

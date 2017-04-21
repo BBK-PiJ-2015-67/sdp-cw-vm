@@ -29,10 +29,8 @@ object ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
     case Some("iswap") => ISwap()
     case Some("idup") => IDup()
     case Some("print") => Print()
-    case Some("iconst") if args.isEmpty =>
-      throw new InvalidBytecodeException("IConst requires one argument")
-    case Some("iconst") if args.length > 1 =>
-      throw new InvalidBytecodeException("IConst accepts only one argument")
+    case Some("iconst") if args.isEmpty || args.length > 1 =>
+      throw new InvalidBytecodeException("IConst requires and accepts only one argument")
     case Some("iconst") => IConst(args.head)
     case _ => throw new InvalidBytecodeException(s"$byte is an invalid ByteCode")
   }

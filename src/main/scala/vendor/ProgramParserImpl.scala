@@ -5,7 +5,7 @@ package vendor
   */
 object ProgramParserImpl extends ProgramParser {
 
-  private lazy val ValidInstructions = Vector(
+  private lazy val LegalInstructions = Vector(
     "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
     "idec", "iinc", "iswap", "idup", "print"
   )
@@ -15,33 +15,33 @@ object ProgramParserImpl extends ProgramParser {
     */
   override def parse(file: String): InstructionList = {
     import scala.io.Source
-    parseLinesToVector(Source.fromFile(file).getLines())
+    linesToInstructionList(Source.fromFile(file).getLines())
   }
 
   /**
     * @see [[vendor.ProgramParser.parseString()]]
     */
   override def parseString(string: String): InstructionList = {
-    parseLinesToVector(string.split("\n").toIterator)
+    linesToInstructionList(string.split("\n").toIterator)
   }
 
   /**
-    * Parses an Iterator of Strings into
-    * an InstructionList
+    * Parses lines of Strings containing instructions and optional
+    * arguments to an InstructionList
     *
     * @param lines Some Iterator containing Strings to parse
     * @return the parsed instructions in an [[InstructionList]]
     * @throws InvalidInstructionFormatException if parsing fails
     */
-  private def parseLinesToVector(lines: Iterator[String]): InstructionList =
+  private def linesToInstructionList(lines: Iterator[String]): InstructionList =
     lines.map(l => {
       l.split(" ").toList match {
+        case hd :: _ if !LegalInstructions.contains(hd) =>
+          throw new InvalidInstructionFormatException("Unrecognised instruction")
         case hd :: tl if tl.nonEmpty => new Instruction(hd, tl.map {
           case n if n.matches("\\d+") => n.toInt
-          case _ => throw new InvalidInstructionFormatException(s"${hd} only accepts Int arguments")
+          case _ => throw new InvalidInstructionFormatException(s"$hd only accepts Int arguments")
         }.toVector)
-        case hd :: _ if !ValidInstructions.contains(hd) =>
-          throw new InvalidInstructionFormatException("Unrecognised instruction")
         case hd :: _ => new Instruction(hd, Vector.empty)
       }
     }).toVector
