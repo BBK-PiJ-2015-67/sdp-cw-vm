@@ -5,7 +5,7 @@ package vendor
   */
 object ProgramParserImpl extends ProgramParser {
 
-  private lazy val LegalInstructions = Vector(
+  private lazy val legalInstructions = Vector(
     "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
     "idec", "iinc", "iswap", "idup", "print"
   )
@@ -36,7 +36,7 @@ object ProgramParserImpl extends ProgramParser {
   private def linesToInstructionList(lines: Iterator[String]): InstructionList =
     lines.map(l => {
       l.split(" ").toList match {
-        case hd :: _ if !LegalInstructions.contains(hd) =>
+        case hd :: _ if !legalInstructions.contains(hd) =>
           throw new InvalidInstructionFormatException("Unrecognised instruction")
         case hd :: tl if tl.nonEmpty => new Instruction(hd, tl.map {
           case n if n.matches("\\d+") => n.toInt
