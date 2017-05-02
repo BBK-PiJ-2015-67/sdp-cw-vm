@@ -2,6 +2,9 @@ package bc
 import bc.byteCodes._
 
 /**
+  * ByteCodeFactory Implementation. It extends [[ByteCodeValues]]
+  * for access to its definitions
+  *
   * @see [[ByteCodeFactory]]
   */
 object ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {

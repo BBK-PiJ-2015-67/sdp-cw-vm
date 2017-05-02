@@ -3,9 +3,8 @@ import bc.ByteCode
 
 /**
   * [[VirtualMachine]] implementation
-  * Implemented as a case class as it's reasonable
-  * to assume that multiple virtual machine's could be
-  * required
+  * Given VirtualMachine is immutable, it is reasonable
+  * to assume it is not a Singleton
   *
   * @see [[VirtualMachine]]
   */

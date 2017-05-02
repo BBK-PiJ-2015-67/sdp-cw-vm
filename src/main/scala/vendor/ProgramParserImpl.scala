@@ -1,14 +1,9 @@
 package vendor
 
 /**
-  * @author lmignot
+  * @see [[ProgramParser]]
   */
 object ProgramParserImpl extends ProgramParser {
-
-  private lazy val legalInstructions = Vector(
-    "iconst", "iadd", "isub", "imul", "idiv", "irem", "ineg",
-    "idec", "iinc", "iswap", "idup", "print"
-  )
 
   /**
     * @see [[vendor.ProgramParser.parse()]]
@@ -36,8 +31,10 @@ object ProgramParserImpl extends ProgramParser {
   private def linesToInstructionList(lines: Iterator[String]): InstructionList =
     lines.map(l => {
       l.split(" ").toList match {
-        case hd :: _ if !legalInstructions.contains(hd) =>
+        case hd :: _ if !isInstruction(hd) =>
           throw new InvalidInstructionFormatException("Unrecognised instruction")
+        case hd :: tl if requiresArguments(hd) && tl.isEmpty =>
+          throw new InvalidInstructionFormatException(s"$hd requires an argument")
         case hd :: tl if tl.nonEmpty => new Instruction(hd, tl.map {
           case n if n.matches("\\d+") => n.toInt
           case _ => throw new InvalidInstructionFormatException(s"$hd only accepts Int arguments")
@@ -45,4 +42,26 @@ object ProgramParserImpl extends ProgramParser {
         case hd :: _ => new Instruction(hd, Vector.empty)
       }
     }).toVector
+
+  /**
+    * Check if a String matching an instruction requires arguments
+    * @param s The String to check
+    * @return True if instruction requires arguments, false if not
+    */
+  private def requiresArguments(s: String): Boolean = s match {
+    case "iconst" => true
+    case _ => false
+  }
+
+  /**
+    * Checks if a given string represents a recognised [[Instruction]]
+    *
+    * @param s The string to check
+    * @return True if the string is a recognised [[Instruction]], else False
+    */
+  private def isInstruction(s: String): Boolean = s match {
+    case "iconst" | "iadd" | "isub" | "imul" | "idiv" | "irem" |
+         "ineg" | "idec" | "iinc" | "iswap" | "idup" | "print" => true
+    case _ => false
+  }
 }

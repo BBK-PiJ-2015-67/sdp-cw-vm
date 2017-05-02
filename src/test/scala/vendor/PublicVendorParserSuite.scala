@@ -12,9 +12,15 @@ class PublicVendorParserSuite extends FunSuite {
     }
   }
 
-  test("[0b] vendor parser throw if parsing unrecognised instruction with arguments") {
+  test("[0b] vendor parser throws if parsing unrecognised instruction with arguments") {
     intercept[vendor.InvalidInstructionFormatException] {
       val insts = vp.parseString("ssss 2\n")
+    }
+  }
+
+  test("[0c] vendor parser throws if parsing iconst with no argument") {
+    intercept[vendor.InvalidInstructionFormatException] {
+      val insts = vp.parseString("iconst")
     }
   }
 

@@ -6,6 +6,7 @@ package bc
   *
   * @param factory the [[ByteCodeFactory]] that will make the ByteCode objects
   *                once they've been parsed
+  * @see [[ByteCodeParser]]
   */
 case class ByteCodeParserImpl(factory: ByteCodeFactory) extends ByteCodeParser {
 
